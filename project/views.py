@@ -7,11 +7,13 @@ from django.views.generic import (
 )
 from project.utils import is_staff, is_author
 
+from .decorators import unauthenticated_user
 from .models import School, Event
 
+@unauthenticated_user
 class RedirectLoginView(LoginRequiredMixin, ListView):
     def get(self, request):
-        return redirect('/login')
+        return redirect('login')
 
 class StaffView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def get(self, request):
